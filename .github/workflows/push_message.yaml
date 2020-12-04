@@ -8,29 +8,18 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
-      - uses: jwalton/gh-find-current-pr@v1
-        id: findPr
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "Your PR is ${PR}"
-        if: success() && steps.findPr.outputs.number
-        env:
-          PR: ${{ steps.findPr.outputs.pr }}
       - uses: mshick/add-pr-comment@v1
         with:
           message: |
             **Hello**
+            ${{ github.event.pull_request.body }}
             🌏
             !
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "Your PR is ${PR}"
-        if: success() && steps.findPr.outputs.number
-        env:
-          PR: ${{ steps.findPr.outputs.pr }}
       - uses: jungwinter/split@v1
         id: split
         with:
-          msg: ${{ steps.findPr.outputs.body }}
+          msg: ${{ github.event.pull_request.body }}
       - uses: mshick/add-pr-comment@v1
         with:
           message: |
