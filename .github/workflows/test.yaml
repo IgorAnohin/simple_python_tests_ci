@@ -1,0 +1,17 @@
+name: Simple tests action
+on: [pull_request]
+jobs:
+  get_branch_tests:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v1
+      # Find the PR associated with this push, if there is one and it is open.
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # This will echo "Your PR is 7", or be skipped if there is no current PR.
+      - run: echo "Your PR is ${PR}"
+        if: success() && steps.findPr.outputs.number
+        env:
+          PR: ${{ steps.findPr.outputs.pr }}
