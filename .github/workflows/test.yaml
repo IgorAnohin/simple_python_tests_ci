@@ -11,7 +11,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       # This will echo "Your PR is 7", or be skipped if there is no current PR.
-      - run: echo "Your PR is ${{ github.event_name }}"
+      - run: echo "Your PR is ${{ github.event }}"
         if: success() && steps.findPr.outputs.number
         env:
           PR: ${{ steps.findPr.outputs.pr }}
