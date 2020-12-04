@@ -19,11 +19,12 @@ jobs:
       - uses: jungwinter/split@v1
         id: split
         with:
+          seperator: "٦"
           msg: ${{ github.event.pull_request.body }}
       - uses: mshick/add-pr-comment@v1
         with:
           message: |
             **Hello**
-            Release ${{ steps.split.outputs._0 }}
+            Release ${{ steps.split.outputs._1 }}
             !
           repo-token: ${{ secrets.GITHUB_TOKEN }}
