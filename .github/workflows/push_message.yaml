@@ -1,4 +1,4 @@
-name: Run tests
+name: Push messages
 on: [pull_request]
 jobs:
   get_branch_tests:
