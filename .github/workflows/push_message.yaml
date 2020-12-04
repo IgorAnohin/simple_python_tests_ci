@@ -21,9 +21,12 @@ jobs:
           message: |
             **Hello**
             🌏
-            ${{ PR }}
             !
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "Your PR is ${PR}"
+        if: success() && steps.findPr.outputs.number
+        env:
+          PR: ${{ steps.findPr.outputs.pr }}
       - uses: jungwinter/split@v1
         id: split
         with:
