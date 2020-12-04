@@ -1,0 +1,30 @@
+name: Push messages
+on: [pull_request]
+jobs:
+  get_branch_tests:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            **Hello**
+            ${{ github.event.pull_request.body }}
+            🌏
+            !
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: jungwinter/split@v1
+        id: split
+        with:
+          seperator: "⚫"
+          msg: ${{ github.event.pull_request.body }}
+      - uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            **Hello**
+            Release ${{ steps.split.outputs._1 }}
+            !
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
