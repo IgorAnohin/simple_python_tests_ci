@@ -21,6 +21,7 @@ jobs:
           message: |
             **Hello**
             🌏
+            ${{ PR }}
             !
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: jungwinter/split@v1
